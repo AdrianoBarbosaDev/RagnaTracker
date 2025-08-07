@@ -7,12 +7,14 @@
 # from ui.janela_teste import JanelaPrincipal
 
 #Import models
-from models.instancia import Instancia, instancas
+from typing import List
+from models.instancia import Instancia
 from models.personagem import personagem, personagens
+from utils.HandlerInstancia import carregar_clientes
 
+import os
 import sys
-
-
+import json
 
 # app = QApplication(sys.argv)
 
@@ -28,31 +30,39 @@ import sys
 #     sys.exit(app.exec())
 
 def startTracker():
-    print("""
-██████╗░░█████╗░░██████╗░███╗░░██╗░█████╗░████████╗██████╗░░█████╗░░█████╗░██╗░░██╗███████╗██████╗░
-██╔══██╗██╔══██╗██╔════╝░████╗░██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗
-██████╔╝███████║██║░░██╗░██╔██╗██║███████║░░░██║░░░██████╔╝███████║██║░░╚═╝█████═╝░█████╗░░██████╔╝
-██╔══██╗██╔══██║██║░░╚██╗██║╚████║██╔══██║░░░██║░░░██╔══██╗██╔══██║██║░░██╗██╔═██╗░██╔══╝░░██╔══██╗
-██║░░██║██║░░██║╚██████╔╝██║░╚███║██║░░██║░░░██║░░░██║░░██║██║░░██║╚█████╔╝██║░╚██╗███████╗██║░░██║
-╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝""")
-    
-    print ("1 - Personagens")
-    print("2 - Instâncias")
-    print("3- Sair")
+    # Salvando
+# with open("dados.json", "w", encoding="utf-8") as f:
+#     json.dump(dados, f, ensure_ascii=False, indent=4)
 
-    opcaoEscolhida = input("Escolha uma opção: ")
+# Carregando
 
-    if(int(opcaoEscolhida) == 1):
-        print(personagens)
-    elif(int(opcaoEscolhida) == 2 ):
-        print(instancas)
-    else:
-        print("Saindo..")
+    instancias = carregar_clientes()
+    for inst in instancias:
+        print(inst)
 
+#     print("""
+# ██████╗░░█████╗░░██████╗░███╗░░██╗░█████╗░████████╗██████╗░░█████╗░░█████╗░██╗░░██╗███████╗██████╗░
+# ██╔══██╗██╔══██╗██╔════╝░████╗░██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗
+# ██████╔╝███████║██║░░██╗░██╔██╗██║███████║░░░██║░░░██████╔╝███████║██║░░╚═╝█████═╝░█████╗░░██████╔╝
+# ██╔══██╗██╔══██║██║░░╚██╗██║╚████║██╔══██║░░░██║░░░██╔══██╗██╔══██║██║░░██╗██╔═██╗░██╔══╝░░██╔══██╗
+# ██║░░██║██║░░██║╚██████╔╝██║░╚███║██║░░██║░░░██║░░░██║░░██║██║░░██║╚█████╔╝██║░╚██╗███████╗██║░░██║
+# ╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝""")
     
+#     print ("1 - Personagens")
+#     print("2 - Instâncias")
+#     print("3- Sair")
 
-    
-    
+#     opcaoEscolhida = input("Escolha uma opção: ")
+
+#     if(int(opcaoEscolhida) == 1):
+#         print(personagens)
+#     elif(int(opcaoEscolhida) == 2 ):
+#         print(instancas)
+#     else:
+#         print("Saindo..")
+
+
+
 
 if __name__ == "__main__":
     startTracker()

@@ -1,9 +1,18 @@
-class Instancia:
-    id = ''
-    nome = ''
-    recarga = ''
-    moedas = 0
-    categoria = '' #Solo ou grupo
-    tempoEstimado = 0
+from dataclasses import dataclass, asdict
+from typing import List
 
-instancas = ["Memórias de Sarah","Pesadelo Musical"]
+@dataclass
+class Instancia:
+    id: str = ''
+    nome: str = ''
+    recarga: str = ''
+    moedas: int = 0
+    categoria: str = '' #Solo ou grupo
+    tempoEstimado: int = 0
+
+    def to_dict(self):
+        return asdict(self)
+
+    @staticmethod
+    def from_dict(data: dict):
+        return Instancia(**data)
