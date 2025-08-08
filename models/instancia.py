@@ -5,10 +5,9 @@ from typing import List
 class Instancia:
     id: str = ''
     nome: str = ''
-    recarga: str = ''
+    recarga: int = 0
     moedas: int = 0
     categoria: str = '' #Solo ou grupo
-    tempoEstimado: int = 0
 
     def to_dict(self):
         return asdict(self)

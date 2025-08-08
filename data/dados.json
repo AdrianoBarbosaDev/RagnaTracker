@@ -1,10 +1,9 @@
 [
     {
-        "id" : "0",
-        "nome": "João",
-        "recarga": "30",
-        "moedas": 50,
-        "categoria": "Solo",
-        "tempoEstimado": 300
+        "id" : "1",
+        "nome": "Altar do Selo",
+        "recarga": 24,
+        "moedas": 1,
+        "categoria": "Solo"
     }
 ]
