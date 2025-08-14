@@ -9,7 +9,8 @@ if conexao:
     # Cria Cursor que ira popular as tabelas
     cur = conexao.cursor()
     #Populando
-    cur.execute("INSERT INTO Personagem (nome, classe) VALUES('Lunahri', 'Arcebispa')")
+    cur.execute("INSERT INTO Personagem (nome, classe) VALUES('Lenahri', 'Arcebispa')")
+    cur.execute("INSERT INTO Personagem (nome, classe) VALUES('Lunahri', 'Bioquimica')")
     conexao.commit()
 
 
