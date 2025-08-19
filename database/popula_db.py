@@ -12,14 +12,13 @@ conexao = conectar()
 if conexao:
     # Cria Cursor que ira popular as tabelas
     cur = conexao.cursor()
+    #Populando
+    cur.execute("INSERT INTO Personagem (nome, classe) VALUES('Lenahri', 'Arcebispa')")
+    cur.execute("INSERT INTO Personagem (nome, classe) VALUES('Lunahri', 'Bioquimica')")
+    conexao.commit()
 
-    #Populando tabela de instâncias
-    instancias = [
-        ("Altar do Selo",24,1,"SOLO OU GRUPO"),
-        ("Infinite Space",24,0,"SOLO OU GRUPO"),
-        ("Torre sem Fim",24,0,"SOLO OU GRUPO"),
-        ("Ninho de Nidhogg",24,1,"SOLO OU GRUPO"),
-    ]
+
+
     cur.executemany("INSERT INTO instancia (nome,recarga,moedas,categoria)VALUES(?,?,?,?)",instancias)
     # cur.execute("INSERT INTO Personagem (nome, classe) VALUES('Lenahri', 'Arcebispa')")
     # cur.execute("INSERT INTO Personagem (nome, classe) VALUES('Lunahri', 'Bioquimica')")
