@@ -1,70 +1,74 @@
-# from PySide6.QtWidgets import (
-#     QApplication, QWidget, QVBoxLayout, QPushButton, QLabel
-# )
-# from PySide6.QtGui import QKeySequence, QKeyEvent
-# from PySide6.QtCore import Qt
-
-# from ui.janela_teste import JanelaPrincipal
-
 #Import models
-from typing import List
-from models.instancia import Instancia
-from models.personagem import personagem, personagens
-from utils.HandlerInstancia import carregar_clientes
-
-import os
+from PySide6.QtWidgets import (
+    QApplication, QWidget, QVBoxLayout, QPushButton, QTextEdit, QLabel
+)
+from PySide6.QtGui import QFont
 import sys
-import json
 
-# app = QApplication(sys.argv)
+from PySide6.QtCore import Qt
 
-# window = QWidget();
-# window.show();
+from database.buscas_db import buscarPersonagens, buscarInstancias
 
-# app.exec();
+class TrackerGUI(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("RPG Tracker")
+        self.setGeometry(100, 100, 600, 400)
 
-# if __name__ == "__main__":
-#     app = QApplication(sys.argv)
-#     window = JanelaPrincipal()
-#     window.show()
-#     sys.exit(app.exec())
+        self.main_layout = QVBoxLayout()
 
-def startTracker():
-    # Salvando
-# with open("dados.json", "w", encoding="utf-8") as f:
-#     json.dump(dados, f, ensure_ascii=False, indent=4)
+        self.logo = QLabel("""
+██████╗░░█████╗░░██████╗░███╗░░██╗░█████╗░████████╗██████╗░░█████╗░░█████╗░██╗░░██╗███████╗██████╗░
+██╔══██╗██╔══██╗██╔════╝░████╗░██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗
+██████╔╝███████║██║░░██╗░██╔██╗██║███████║░░░██║░░░██████╔╝███████║██║░░╚═╝█████═╝░█████╗░░██████╔╝
+██╔══██╗██╔══██║██║░░╚██╗██║╚████║██╔══██║░░░██║░░░██╔══██╗██╔══██║██║░░██╗██╔═██╗░██╔══╝░░██╔══██╗
+██║░░██║██║░░██║╚██████╔╝██║░╚███║██║░░██║░░░██║░░░██║░░██║██║░░██║╚█████╔╝██║░╚██╗███████╗██║░░██║
+╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝
+""")
+        self.logo.setFont(QFont("Courier", 8))
+        self.logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.logo.setWordWrap(True)
+        self.main_layout.addWidget(self.logo)
 
-# Carregando
+        # Botões
+        self.btn_personagens = QPushButton("1 - Personagens")
+        self.btn_personagens.clicked.connect(self.exibirPersonagens)
 
-    instancias = carregar_clientes()
-    for inst in instancias:
-        print(inst)
+        self.btn_instancias = QPushButton("2 - Instâncias")
+        self.btn_instancias.clicked.connect(self.exibirInstancias)
 
-    
+        self.btn_sair = QPushButton("3 - Sair")
+        self.btn_sair.clicked.connect(self.close)
 
-#     print("""
-# ██████╗░░█████╗░░██████╗░███╗░░██╗░█████╗░████████╗██████╗░░█████╗░░█████╗░██╗░░██╗███████╗██████╗░
-# ██╔══██╗██╔══██╗██╔════╝░████╗░██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗
-# ██████╔╝███████║██║░░██╗░██╔██╗██║███████║░░░██║░░░██████╔╝███████║██║░░╚═╝█████═╝░█████╗░░██████╔╝
-# ██╔══██╗██╔══██║██║░░╚██╗██║╚████║██╔══██║░░░██║░░░██╔══██╗██╔══██║██║░░██╗██╔═██╗░██╔══╝░░██╔══██╗
-# ██║░░██║██║░░██║╚██████╔╝██║░╚███║██║░░██║░░░██║░░░██║░░██║██║░░██║╚█████╔╝██║░╚██╗███████╗██║░░██║
-# ╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝""")
-    
-#     print ("1 - Personagens")
-#     print("2 - Instâncias")
-#     print("3- Sair")
+        self.main_layout.addWidget(self.btn_personagens)
+        self.main_layout.addWidget(self.btn_instancias)
+        self.main_layout.addWidget(self.btn_sair)
 
-#     opcaoEscolhida = input("Escolha uma opção: ")
+        self.output = QTextEdit()
+        self.output.setReadOnly(True)
+        self.main_layout.addWidget(self.output)
 
-#     if(int(opcaoEscolhida) == 1):
-#         print(personagens)
-#     elif(int(opcaoEscolhida) == 2 ):
-#         print(instancas)
-#     else:
-#         print("Saindo..")
+        self.setLayout(self.main_layout)
 
+    def exibirPersonagens(self):
+        personagens = buscarPersonagens()
+        if personagens:
+            texto = "\n".join([f"{p['id']} - {p['nome']} ({p['classe']}, nível {p['nivel']})" for p in personagens])
+        else:
+            texto = "Nenhum personagem encontrado."
+        self.output.setPlainText(texto)
 
+    def exibirInstancias(self):
+        instancias = buscarInstancias()
+        if instancias:
+            texto = "\n".join([f"{i['id']} - {i['nome']} (nível {i['nivel']})" for i in instancias])
+        else:
+            texto = "Nenhuma instância encontrada."
+        self.output.setPlainText(texto)
 
 
 if __name__ == "__main__":
-    startTracker()
+    app = QApplication(sys.argv)
+    gui = TrackerGUI()
+    gui.show()
+    sys.exit(app.exec())
