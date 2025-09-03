@@ -7,7 +7,6 @@ class Instancia:
     nome: str = ''
     recarga: int = 0
     moedas: int = 0
-    categoria: str = '' #Solo ou grupo
     categoria: modalidade = Modalidade.GRUPO
 
     def to_dict(self):
